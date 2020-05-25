@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import { classToClass } from 'class-transformer';
 
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appoitment';
 import iCacheProvider from '@shared/container/providers/CachProvider/models/iCacheProvider';
@@ -28,9 +29,11 @@ class ListProviderMonthAvailabilityService {
     month,
   }: IRequestDTO): Promise<Appointment[]> {
     const cacheKey = `provider-appointments:${provider_id}:${year}-${month}-${day}`;
-    let appointments = await this.cacheProvider.recover<Appointment[]>(
-      cacheKey,
-    );
+    // let appointments = await this.cacheProvider.recover<Appointment[]>(
+    //   cacheKey,
+    // );
+
+    let appointments;
 
     if (!appointments) {
       appointments = await this.appointmentsRepository.findAllInDayFromProvider(
@@ -42,7 +45,7 @@ class ListProviderMonthAvailabilityService {
         },
       );
 
-      await this.cacheProvider.save(cacheKey, appointments);
+      await this.cacheProvider.save(cacheKey, classToClass(appointments));
     }
 
     return appointments;
