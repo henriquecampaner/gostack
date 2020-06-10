@@ -1,14 +1,23 @@
 import React from 'react';
-import { View, Button } from 'react-native';
 
+// Authorization
 import { useAuth } from '../../hooks/Auth';
 
+// Styles
+import { Container, Header, HeaderTitle, UserName } from './styles';
+
 const Dashboard: React.FC = () => {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
-      <Button title="logout" onPress={signOut} />
-    </View>
+    <Container>
+      <Header>
+        <HeaderTitle>
+          Welcone, {'\n'}
+          <UserName>{user.name}</UserName>
+        </HeaderTitle>
+      </Header>
+    </Container>
   );
 };
 
