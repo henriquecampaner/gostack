@@ -36,14 +36,6 @@ const SignUp: React.FC = () => {
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  // useEffect(() => {
-  //   async function xd() {
-  //     const cd = await api.get('/users');
-  //     console.log(cd);
-  //   }
-  //   xd();
-  // }, []);
-
   const handleSignup = useCallback(
     async (data: SignUpData) => {
       try {
