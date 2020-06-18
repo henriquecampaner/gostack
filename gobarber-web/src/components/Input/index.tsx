@@ -15,7 +15,7 @@ import { Container, Error } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  icon: React.ComponentType<IconBaseProps>;
+  icon?: React.ComponentType<IconBaseProps>;
   containerStyle?: object;
 }
 
@@ -55,8 +55,9 @@ const Input: React.FC<InputProps> = ({
       isFocused={isFocused}
       isFilled={isFilled}
       isErrored={!!error}
+      data-testid="input-container"
     >
-      {Icon && <Icon />}
+      {Icon && <Icon data-testid="icon" />}
       <input
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
@@ -65,7 +66,7 @@ const Input: React.FC<InputProps> = ({
         defaultValue={defaultValue}
       />
       {error && (
-        <Error title={error}>
+        <Error title={error} data-testid="error">
           <FiAlertCircle color="#c53030" size={20} />
         </Error>
       )}
